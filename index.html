@@ -99,7 +99,7 @@
 *{box-sizing:border-box;margin:0}
 body{font-family:Montserrat,system-ui,sans-serif;background:#15130e;color:#f1e3b8;min-height:100vh}
 .app{display:grid;grid-template-columns:560px 1fr;gap:0;min-height:100vh}
-@media(max-width:900px){.app{grid-template-columns:1fr}}
+@media(max-width:900px){.app{grid-template-columns:1fr;align-content:start}}
 
 /* ---------- formulário ---------- */
 form{padding:28px;background:#1d1a11;border-right:1px solid #3a3017;overflow-y:auto;max-height:100vh;position:sticky;top:0}
@@ -150,7 +150,7 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
 .tema .sw{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:8px;vertical-align:-1px;border:1px solid #e7b94a}
 .tema .e{background:#000}.tema .c{background:#faf4e6}
 /* ---- versão clara (baseada no mock 3) ---- */
-.imgc{width:1080px;background:#faf4e6;color:#2b2415;font-family:Lato,sans-serif;padding:80px 90px;position:relative}
+.imgc{width:1080px;min-height:1920px;display:flex;flex-direction:column;background:#faf4e6;color:#2b2415;font-family:Lato,sans-serif;padding:80px 90px;position:relative}
 .imgc:before{content:"";position:absolute;inset:26px;border:1px solid #c9a53f}
 .c3-head{text-align:center}
 .c3-logo{font-family:'Great Vibes',cursive;font-size:96px;color:#b8891c;line-height:1}
@@ -159,7 +159,8 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
 .c3-cli{text-align:center;font-family:'Playfair Display',serif;font-style:italic;font-size:36px;color:#8a6a15;margin-bottom:46px}
 .c3-orn{display:flex;align-items:center;gap:20px;color:#c9a53f;margin:0 0 36px}
 .c3-orn:before,.c3-orn:after{content:"";flex:1;height:1px;background:#c9a53f}
-.c3-row{display:flex;justify-content:space-between;align-items:baseline;gap:30px;padding:16px 0;border-bottom:1px dotted #c9b98a;font-size:27px}
+.c3-list{flex:1;display:flex;flex-direction:column}
+.c3-row{flex:1;display:flex;justify-content:space-between;align-items:center;gap:30px;padding:16px 0;border-bottom:1px dotted #c9b98a;font-size:27px}
 .c3-row span{color:#8a7440;font-size:19px;letter-spacing:3px;text-transform:uppercase;white-space:nowrap}
 .c3-row b{font-family:'Playfair Display',serif;font-weight:600;text-align:right;max-width:600px}
 .c3-obs{margin:40px 0;font-size:21px;line-height:1.6;color:#5d5137;text-align:center;font-style:italic;white-space:pre-line}
@@ -175,9 +176,10 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
 
 /* ---------- preview ---------- */
 .preview{padding:24px;display:flex;justify-content:center;align-items:flex-start;background:#0b0a07;overflow:hidden}
-.scaler{transform-origin:top center}
+.scaler{position:relative;flex:none}
+.scaler>.img,.scaler>.imgc{position:absolute;left:0;top:0;transform-origin:top left}
 /* ---------- a imagem (1080px de largura) ---------- */
-.img{width:1080px;background:radial-gradient(circle at 20% 0%,#2a2110,#000 55%);color:#f3e6c4;font-family:Montserrat,sans-serif;padding:70px 80px;position:relative;overflow:hidden}
+.img{width:1080px;min-height:1920px;display:flex;flex-direction:column;background:radial-gradient(circle at 20% 0%,#2a2110,#000 55%);color:#f3e6c4;font-family:Montserrat,sans-serif;padding:70px 80px;position:relative;overflow:hidden}
 .img:before{content:"";position:absolute;inset:24px;border:2px solid #d4a73a;pointer-events:none}
 .img:after{content:"";position:absolute;inset:34px;border:1px solid #6d5619;pointer-events:none}
 .top{text-align:center}
@@ -188,7 +190,7 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
 .cli{text-align:center;font-size:30px;margin-bottom:40px;letter-spacing:2px}
 .cli b{color:#e7b94a}
 .lin{height:2px;background:linear-gradient(90deg,transparent,#d4a73a,transparent);margin:26px 0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 40px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 40px;flex:1;align-content:space-evenly}
 .it small{display:block;font-size:17px;letter-spacing:3px;text-transform:uppercase;color:#b38d2e;margin-bottom:4px}
 .it span{font-size:28px;font-weight:600}
 .full{grid-column:1/-1}
@@ -252,7 +254,7 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
 
   <div class="btns">
     <button type="button" id="limpar">Limpar</button>
-    <button type="button" id="baixar">Baixar imagem (JPEG)</button>
+    <button type="button" id="baixar">Baixar imagem</button>
   </div>
   <div class="msg" id="msg"></div>
   <div id="pop" role="dialog" aria-label="Selecionar"></div>
@@ -289,6 +291,7 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
    <h1>Proposta de Orçamento</h1>
    <div class="c3-cli">para <span data-o="cliente"></span></div>
    <div class="c3-orn">✦</div>
+   <div class="c3-list">
    <div class="c3-row"><span>Data</span><b data-o="data"></b></div>
    <div class="c3-row"><span>Tempo de bar</span><b data-o="tempo"></b></div>
    <div class="c3-row"><span>Horário</span><b data-o="horario"></b></div>
@@ -297,6 +300,7 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
    <div class="c3-row"><span>Bartenders</span><b data-o="bartenders"></b></div>
    <div class="c3-row"><span>Drinks</span><b data-o="drinks"></b></div>
    <div class="c3-row"><span>Convidados</span><b data-o="convidados"></b></div>
+   </div>
    <p class="c3-obs" data-o="obs"></p>
    <div class="c3-valor"><small>Valor total da proposta</small><b data-o="valor"></b></div>
    <div class="c3-pag"><div><b data-o="p1"></b>no ato do fechamento da proposta</div><div><b data-o="p2"></b>até o início do evento</div></div>
@@ -331,22 +335,20 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
   function fmtValor(v){ var n=num(v); if(n==null) return "R$ 0,00"; return "R$ "+n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}); }
   function txt(v,alt){ v=(v||"").trim(); return v||alt; }
 
-  /* gera JPEG < 200 KB: baixa a qualidade e, se preciso, reduz a dimensão */
-  var LIMITE = 200*1024;
+  /* JPEG: largura fixa de 700 px (altura proporcional). Qualidade 100% e,
+     só se passar de 200 KB, desce até no mínimo 90%. */
+  var LIMITE = 200*1024, LARGURA = 700, QUALIDADES = [1, 0.97, 0.94, 0.92, 0.9];
   function toBlobP(cv,q){ return new Promise(function(ok,err){ cv.toBlob(function(b){ b?ok(b):err(new Error("falha ao gerar JPEG")); },"image/jpeg",q); }); }
-  function jpegAte200kb(src){
-    var escalas=[1,0.92,0.85,0.78,0.7,0.6], qs=[0.92,0.86,0.8,0.74,0.68,0.62,0.56,0.5];
-    var ei=0, qi=0, melhor=null;
+  function jpegFinal(src){
+    var cv=document.createElement("canvas");
+    cv.width=LARGURA; cv.height=Math.round(src.height*LARGURA/src.width);
+    var ctx=cv.getContext("2d"); ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality="high";
+    ctx.drawImage(src,0,0,cv.width,cv.height);
+    var i=0;
     function passo(){
-      var f=escalas[ei], cv=src;
-      if(f!==1){ cv=document.createElement("canvas"); cv.width=Math.round(src.width*f); cv.height=Math.round(src.height*f);
-        var ctx=cv.getContext("2d"); ctx.imageSmoothingQuality="high"; ctx.drawImage(src,0,0,cv.width,cv.height); }
-      return toBlobP(cv,qs[qi]).then(function(b){
-        melhor={blob:b,w:cv.width,h:cv.height};
-        if(b.size<=LIMITE) return melhor;
-        if(qi<qs.length-1){ qi++; return passo(); }
-        if(ei<escalas.length-1){ ei++; qi=0; return passo(); }
-        return melhor;
+      return toBlobP(cv,QUALIDADES[i]).then(function(b){
+        if(b.size<=LIMITE || i>=QUALIDADES.length-1) return {blob:b,w:cv.width,h:cv.height,q:QUALIDADES[i]};
+        i++; return passo();
       });
     }
     return passo();
@@ -384,12 +386,12 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
 
   /* encaixa o preview (1080px) na largura disponível */
   function escalar(){
-    var pv=$("pv"), sc=$("scaler"), card=cardAtivo();
-    var disp = pv.clientWidth - 48;
-    var s = Math.min(1, disp/1080);
-    sc.style.transform = "scale("+s+")";
-    sc.style.width = "1080px";
-    sc.style.height = (card.offsetHeight*s)+"px";
+    var pv=$("pv"), sc=$("scaler"), card=cardAtivo(), cs=getComputedStyle(pv);
+    var disp = pv.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    var f = Math.min(1, disp/1080);
+    [$("card"),$("card2")].forEach(function(c){ c.style.transform="scale("+f+")"; });
+    sc.style.width = (1080*f)+"px";
+    sc.style.height = (card.offsetHeight*f)+"px";
   }
   window.addEventListener("resize",escalar);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(escalar);
@@ -430,23 +432,23 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
 
   $("baixar").addEventListener("click",function(){
     var b=this, m=$("msg"); b.disabled=true; m.textContent="Gerando imagem...";
-    var sc=$("scaler"), old=sc.style.transform; sc.style.transform="none";
+    var cs=[$("card"),$("card2")], old=cs.map(function(x){return x.style.transform}); cs.forEach(function(x){x.style.transform="none"});
     var go = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
     go.then(function(){
       var c=cardAtivo();
       return htmlToImage.toCanvas(c,{pixelRatio:1,cacheBust:true,width:1080,height:c.offsetHeight,backgroundColor:($("tema").value==="claro"?"#faf4e6":"#000000")});
     }).then(function(canvas){
-      return jpegAte200kb(canvas);
+      return jpegFinal(canvas);
     }).then(function(r){
       var url=URL.createObjectURL(r.blob);
       var a=document.createElement("a");
       a.download="orcamento-"+slug($("cliente").value)+($("tema").value==="claro"?"-claro":"")+".jpg"; a.href=url;
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(function(){ URL.revokeObjectURL(url); },10000);
-      m.textContent="Pronto. JPEG "+Math.round(r.blob.size/1024)+" KB ("+r.w+"x"+r.h+").";
+      m.textContent="Pronto. "+r.w+"x"+r.h+" px, "+Math.round(r.blob.size/1024)+" KB, qualidade "+Math.round(r.q*100)+"%."+(r.blob.size>LIMITE?" Atenção: passou de 200 KB.":"");
     }).catch(function(err){
       console.error(err); m.textContent="Erro ao gerar a imagem: "+(err && err.message || err);
-    }).then(function(){ sc.style.transform=old; b.disabled=false; escalar(); });
+    }).then(function(){ cs.forEach(function(x,i){x.style.transform=old[i]}); b.disabled=false; escalar(); });
   });
 
 
