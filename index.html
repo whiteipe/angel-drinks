@@ -106,12 +106,14 @@ form{padding:28px;background:#1d1a11;border-right:1px solid #3a3017;overflow-y:a
 @media(max-width:900px){form{position:static;max-height:none}}
 form h2{font-family:'Great Vibes',cursive;font-weight:400;font-size:52px;color:#e7b94a;margin-bottom:4px}
 form p.sub{font-size:15px;color:#a39366;margin-bottom:18px}
-label{display:block;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#b38d2e;margin:18px 0 7px;font-weight:700}
-input,textarea{width:100%;background:#0f0d08;border:1px solid #4a3d1a;border-radius:12px;color:#f6ecd0;padding:14px 16px;min-height:56px;font:inherit;font-size:18px}
+label{display:block;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#b38d2e;margin:22px 0 8px;font-weight:700}
+input,textarea{width:100%;background:#0f0d08;border:1px solid #4a3d1a;border-radius:12px;color:#f6ecd0;padding:18px 18px;min-height:68px;font:inherit;font-size:21px}
 input:focus,textarea:focus{outline:2px solid #e7b94a;border-color:#e7b94a}
-textarea{resize:vertical;min-height:130px;line-height:1.4}
+textarea{resize:vertical;min-height:210px;line-height:1.45}
+textarea.t2{min-height:104px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.btns{display:flex;gap:12px;margin-top:22px;position:sticky;bottom:0;background:#1d1a11;padding:14px 0 calc(14px + env(safe-area-inset-bottom))}
+.acoes{position:sticky;bottom:0;margin-top:24px;background:#1d1a11;border-top:1px solid #3a3017;padding:12px 0 calc(14px + env(safe-area-inset-bottom))}
+.btns{display:flex;gap:12px;margin-top:10px}
 button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height:58px;font:inherit;font-weight:700;font-size:18px}
 #baixar{background:linear-gradient(135deg,#f1cf70,#c08f1f);color:#1a1200}
 #limpar{flex:0 0 auto;background:#2b2515;color:#d9cba5}
@@ -144,8 +146,8 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
 @media(max-width:420px){ .row2{gap:10px} label{letter-spacing:1px} }
 
 .off{display:none!important}
-.tema{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 4px}
-.tema button{background:#0f0d08;border:2px solid #4a3d1a;color:#d9cba5;border-radius:12px;padding:12px;min-height:56px;font-size:17px}
+.tema{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0}
+.tema button{background:#0f0d08;border:2px solid #4a3d1a;color:#d9cba5;border-radius:12px;padding:10px;min-height:50px;font-size:16px}
 .tema button.on{border-color:#e7b94a;background:#2b2515;color:#f6ecd0}
 .tema .sw{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:8px;vertical-align:-1px;border:1px solid #e7b94a}
 .tema .e{background:#000}.tema .c{background:#faf4e6}
@@ -212,34 +214,30 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
   <p class="sub">Preencha os campos. A imagem atualiza na hora.</p>
 
   <input type="hidden" id="tema" value="escuro">
-  <div class="tema" role="group" aria-label="Versão da imagem">
-    <button type="button" data-tema="escuro"><i class="sw e"></i>Escura</button>
-    <button type="button" data-tema="claro"><i class="sw c"></i>Clara</button>
-  </div>
-
   <label for="cliente">Cliente</label>
-  <input id="cliente" data-default="Nome do cliente">
+  <input id="cliente" data-default="Nome do cliente" autocomplete="off" enterkeyhint="next">
+
+  <label for="data">Data do evento</label>
+  <input id="data" type="date">
 
   <div class="row2">
-    <div><label for="data">Data do evento</label><input id="data" type="date"></div>
     <div><label for="horario">Horário</label><input id="horario" class="pick" data-pick="hora" readonly placeholder="a definir"></div>
-  </div>
-
-  <div class="row2">
     <div><label for="tempo">Tempo de bar</label><input id="tempo" class="pick" data-pick="duracao" readonly placeholder="4h"></div>
-    <div><label for="convidados">Convidados</label><input id="convidados" inputmode="numeric" pattern="[0-9]*" maxlength="4" data-num="int" enterkeyhint="next" placeholder="20"></div>
   </div>
 
   <div class="row2">
+    <div><label for="convidados">Convidados</label><input id="convidados" inputmode="numeric" pattern="[0-9]*" maxlength="4" data-num="int" enterkeyhint="next" placeholder="20"></div>
     <div><label for="bartenders">Bartenders</label><input id="bartenders" inputmode="numeric" pattern="[0-9]*" maxlength="2" data-num="int" enterkeyhint="next" placeholder="1"></div>
-    <div><label for="local">Local</label><input id="local" placeholder="Setor O, Ceilândia"></div>
   </div>
+
+  <label for="local">Local</label>
+  <input id="local" placeholder="Setor O, Ceilândia" autocomplete="off" enterkeyhint="next">
 
   <label for="servico">Serviço</label>
-  <input id="servico" placeholder="mão de obra + fruteiras de vidro + utensílios">
+  <textarea id="servico" class="t2" data-single placeholder="mão de obra + fruteiras de vidro + utensílios"></textarea>
 
   <label for="drinks">Drinks</label>
-  <input id="drinks" placeholder="Até 5 opções com e/ou sem álcool (a definir)">
+  <textarea id="drinks" class="t2" data-single placeholder="Até 5 opções com e/ou sem álcool (a definir)"></textarea>
 
   <label for="obs">Observações</label>
   <textarea id="obs"></textarea>
@@ -250,11 +248,17 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
   </div>
 
   <label for="tel">Telefone</label>
-  <input id="tel" type="tel" inputmode="tel" data-num="tel" maxlength="20">
+  <input id="tel" type="tel" inputmode="tel" data-num="tel" maxlength="15" placeholder="(61) 99999-9999" autocomplete="off">
 
+  <div class="acoes">
+    <div class="tema" role="group" aria-label="Versão da imagem">
+      <button type="button" data-tema="escuro"><i class="sw e"></i>Escura</button>
+      <button type="button" data-tema="claro"><i class="sw c"></i>Clara</button>
+    </div>
   <div class="btns">
     <button type="button" id="limpar">Limpar</button>
     <button type="button" id="baixar">Baixar imagem</button>
+    </div>
   </div>
   <div class="msg" id="msg"></div>
   <div id="pop" role="dialog" aria-label="Selecionar"></div>
@@ -398,6 +402,14 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
 
 
   /* ---------- campos somente numéricos ---------- */
+  function mascaraTel(v){
+    var d=v.replace(/\D/g,"").slice(0,11);
+    if(d.length===0) return "";
+    if(d.length<=2) return "("+d;
+    if(d.length<=6) return "("+d.slice(0,2)+") "+d.slice(2);
+    if(d.length<=10) return "("+d.slice(0,2)+") "+d.slice(2,6)+"-"+d.slice(6);
+    return "("+d.slice(0,2)+") "+d.slice(2,7)+"-"+d.slice(7);
+  }
   function limpaNum(el){
     var t=el.dataset.num, v=el.value;
     if(t==="int"){ v=v.replace(/\D/g,""); }
@@ -406,19 +418,23 @@ button{flex:1;cursor:pointer;border:0;border-radius:14px;padding:16px;min-height
       v=v.replace(/\./g,",").replace(/[^\d,]/g,"");
       var i=v.indexOf(","); if(i>=0) v=v.slice(0,i+1)+v.slice(i+1).replace(/,/g,"").slice(0,2);
     }
-    else if(t==="tel"){ v=v.replace(/[^\d()+\- ]/g,""); }
+    else if(t==="tel"){ v=mascaraTel(v); }
     if(v!==el.value) el.value=v;
   }
   [].forEach.call(document.querySelectorAll("[data-num]"),function(el){
     el.addEventListener("input",function(){ limpaNum(el); });
     el.addEventListener("keydown",function(e){
       if(e.ctrlKey||e.metaKey||e.altKey||e.key.length!==1) return;
-      var t=el.dataset.num, ok = (t==="money") ? /[\d.,]/.test(e.key) : (t==="tel") ? /[\d()+\- ]/.test(e.key) : /\d/.test(e.key);
+      var t=el.dataset.num, ok = (t==="money") ? /[\d.,]/.test(e.key) : (t==="tel") ? /\d/.test(e.key) : /\d/.test(e.key);
       if(!ok) e.preventDefault();
     });
   });
   [].forEach.call(document.querySelectorAll("[data-tema]"),function(b){
     b.addEventListener("click",function(){ $("tema").value=b.dataset.tema; $("tema").dispatchEvent(new Event("input",{bubbles:true})); });
+  });
+  [].forEach.call(document.querySelectorAll("[data-single]"),function(el){
+    el.addEventListener("keydown",function(e){ if(e.key==="Enter") e.preventDefault(); });
+    el.addEventListener("input",function(){ if(/[\r\n]/.test(el.value)) el.value=el.value.replace(/\s*[\r\n]+\s*/g," "); });
   });
   $("f").addEventListener("input",render);
   $("valor").addEventListener("blur",function(){ var n=num(this.value); if(n!=null){ this.value=n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}); render(); }});
